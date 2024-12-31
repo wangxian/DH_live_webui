@@ -1,11 +1,11 @@
 import os
-import torch 
+import torch
 
 from gfpgan import GFPGANer
 
 from tqdm import tqdm
 
-from .videoio import load_video_to_cv2
+from face_sr.videoio import load_video_to_cv2
 
 import cv2
 
@@ -59,7 +59,7 @@ def enhancer_generator_no_len(images, method='gfpgan', bg_upsampler='realesrgan'
         channel_multiplier = 2
         model_name = 'RestoreFormer'
         url = 'https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/RestoreFormer.pth'
-    elif method == 'codeformer': # TODO:
+    elif method == 'codeformer':
         arch = 'CodeFormer'
         channel_multiplier = 2
         model_name = 'CodeFormer'
@@ -92,10 +92,10 @@ def enhancer_generator_no_len(images, method='gfpgan', bg_upsampler='realesrgan'
 
     # determine model paths
     model_path = os.path.join('gfpgan/weights', model_name + '.pth')
-    
+
     if not os.path.isfile(model_path):
         model_path = os.path.join('checkpoints', model_name + '.pth')
-    
+
     if not os.path.isfile(model_path):
         # download pre-trained models from url
         model_path = url
@@ -109,15 +109,21 @@ def enhancer_generator_no_len(images, method='gfpgan', bg_upsampler='realesrgan'
 
     # ------------------------ restore ------------------------
     for idx in tqdm(range(len(images)), 'Face Enhancer:'):
-        
+
         img = cv2.cvtColor(images[idx], cv2.COLOR_RGB2BGR)
-        
+
         # restore faces and background if necessary
         cropped_faces, restored_faces, r_img = restorer.enhance(
             img,
             has_aligned=False,
             only_center_face=False,
             paste_back=True)
-        
+
         r_img = cv2.cvtColor(r_img, cv2.COLOR_BGR2RGB)
         yield r_img
+
+if __name__ == '__main__':
+    image = enhancer_list("/home/ai/code/DH_live_webui/24.png", method='gfpgan', bg_upsampler="realesrgan")
+    from PIL import Image
+    pil_image = Image.fromarray(image[0])
+    pil_image.save("25.png")
