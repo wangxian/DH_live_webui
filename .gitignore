@@ -32,7 +32,6 @@ __pycache__/
 .DS_Store
 
 exp
-data
 raw_wav
 tensorboard
 **/*build*
@@ -51,6 +50,6 @@ pretrained_models/*
 py311/
 mac/
 checkpoint/
-gfpgan/weights/
-train/data/
+gfpgan/weights/*
+!gfpgan/weights/README.md
 output/output-*.mp4

@@ -26,4 +26,4 @@ def face_en(old, new):
 
 if __name__ == '__main__':
 
-    face_en("/home/ai/code/DH_live/output/output-render.mp4", "./output/output-render-en.mp4")
+    face_en("/home/ai/code/DH_live/output/output-18000-2k.mp4", "./output/output-18000-en.mp4")
