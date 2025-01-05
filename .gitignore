@@ -53,3 +53,4 @@ mac/
 checkpoint/
 gfpgan/weights/
 train/data/
+output/output-*.mp4
