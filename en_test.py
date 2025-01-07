@@ -21,9 +21,9 @@ def face_en(old, new):
     final_clip.write_videofile(
         predicted_video_512_path, codec='libx264', audio_codec='aac')
 
-    os.remove(predicted_video_512_path+'.tmp.mp4')
+    os.remove(predicted_video_512_path + '.tmp.mp4')
 
 
 if __name__ == '__main__':
 
-    face_en("/home/ai/code/DH_live/output/output-18000-2k.mp4", "./output/output-18000-en.mp4")
+    face_en("/home/ai/code/DH_live/output/output-12000.mp4", "/home/ai/code/DH_live/output/output-12000-en.mp4")
